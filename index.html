@@ -10,7 +10,7 @@
     <a href="#main" class="skip">Skip to content</a>
     <header>
         <h1>Student Finance Tracker</h1>
-        <nav aria-label="Main"></nav>
+        <nav aria-label="Main">
         <a href="#about">About</a>
         <a href="#dashboard">Dashboard</a>
         <a href="#records">Records</a>
@@ -25,6 +25,33 @@
             <p>It works in the browser and saves your data on your own device, so it is still there when you come back.</p>
             <p>Contact: <a href="https://github.com/lizaituze1">Github</a> | <a href="mailto:l.ituze@alustudent.com">l.ituze@alustudent.com</a></p>
         </section>
+          <section id="dashboard" aria-labelledby="dashboard-title">
+    <h2 id="dashboard-title">Dashboard</h2>
+
+    <div class="stats">
+      <div class="stat">
+        <h3>Total records</h3>
+        <p id="stat-total">0</p>
+      </div>
+      <div class="stat">
+        <h3>Total spent</h3>
+        <p id="stat-sum">0</p>
+      </div>
+      <div class="stat">
+        <h3>Top category</h3>
+        <p id="stat-top">None yet</p>
+      </div>
+      <div class="stat">
+        <h3>Cap left</h3>
+        <p id="stat-cap">Not set</p>
+      </div>
+    </div>
+
+    <h3>Last 7 days</h3>
+    <div id="trend" class="trend" role="img" aria-label="Spending over the last 7 days"></div>
+
+    <p id="cap-message" aria-live="polite"></p>
+  </section>
         <section id="records" aria-labelledby="records-title">
             <h2 id="records-title">Records</h2>
 

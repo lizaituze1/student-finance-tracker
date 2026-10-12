@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validator tests</title>
+</head>
+<body>
+    <h1>Validator tests</h1>
+    <ul id="results"></ul>
+
+    <script type="module">
+        import { validateDescription, validateAmount } from './scripts/validators.js';
+
+        const list = document.getElementById('results');
+
+        function test(name, actual, expected) {
+            const li = document.createElement('li');
+            const pass = actual === expected;
+            li.textContent = (pass ? 'PASS: ' : 'FAIL: ') + name;
+            list.appendChild(li);
+        }
+
+        test('description: "Lunch" is ok', validateDescription('Lunch').ok, true);
+        test('description: "Lunch at cafe" is ok', validateDescription('Lunch at cafe').ok, true);
+        test('escription: leading space fails', validateDescription('Lunch').ok, false);
+        test('description: trailing space fails', validateDescription('Lunch ').ok, false);
+
+        test('amount: "12 is ok', validateAmount('12').ok, true);
+        test('amount: "12.50" is ok', validateAmount('12.50').ok, true);
+        test('amount: "0" is ok', validateAmount('0').ok, true);
+        test('amount: "012" fails', validateAmount('012').ok, false);
+        test('amount: "12.345" fails', validateAmount('12.345').ok, false);
+        test('amouny: "abc" fails', validateAmount('abc').ok, false);
+        test('amount: empty fails', validateAmount('').ok, false);
+    </script>
+</body>
+</html>

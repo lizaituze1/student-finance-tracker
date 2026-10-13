@@ -10,8 +10,7 @@
     <ul id="results"></ul>
 
     <script type="module">
-        import { validateDescription, validateAmount } from './scripts/validators.js';
-
+        import { validateDescription, validateAmount, validateDate, validateCategory, validateNoDuplicateWords } from './scripts/validators.js';
         const list = document.getElementById('results');
 
         function test(name, actual, expected) {
@@ -23,7 +22,7 @@
 
         test('description: "Lunch" is ok', validateDescription('Lunch').ok, true);
         test('description: "Lunch at cafe" is ok', validateDescription('Lunch at cafe').ok, true);
-        test('escription: leading space fails', validateDescription('Lunch').ok, false);
+        test('description: leading space fails', validateDescription(' Lunch').ok, false);
         test('description: trailing space fails', validateDescription('Lunch ').ok, false);
 
         test('amount: "12 is ok', validateAmount('12').ok, true);
@@ -31,8 +30,27 @@
         test('amount: "0" is ok', validateAmount('0').ok, true);
         test('amount: "012" fails', validateAmount('012').ok, false);
         test('amount: "12.345" fails', validateAmount('12.345').ok, false);
-        test('amouny: "abc" fails', validateAmount('abc').ok, false);
+        test('amount: "abc" fails', validateAmount('abc').ok, false);
         test('amount: empty fails', validateAmount('').ok, false);
+
+        test('date: 2025-09-29 is ok' , validateDate('2025-09-29').ok, true);
+        test('date: leap day 2024-02-29 is ok', validateDate('2024-02-29').ok, true);
+        test('date: 2025-02-31 fails' , validateDate('2025-02-31').ok, false);
+        test('date: month 13 fails', validateDate('2025-13-01').ok, false);
+        test('date: short year fails', validateDate('25-09-29').ok, false);
+         
+        test('category: Food is ok', validateCategory('Food').ok, true);
+        test('category: Fast food is ok', validateCategory('Fast food').ok, true);
+        test('category: Self-care is ok', validateCategory('Self-care').ok, true);
+        test('category: Food2 fails', validateCategory('Food2').ok, false);
+        test('category: leading space fails', validateCategory(' Food').ok, false);
+
+        test('duplicate: normal test is ok', validateNoDuplicateWords('Lunch at cafe').ok, true);
+        test('duplicate: "Lunch lunch" fails', validateNoDuplicateWords('Lunch lunch cafe').ok, false);
+        test('duplicate: "the the" fails', validateNoDuplicateWords('the the').ok, false);
+
+
+
     </script>
 </body>
 </html>

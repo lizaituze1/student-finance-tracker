@@ -1,3 +1,5 @@
+import { addRecord, getRecords } from './state.js';
+import { renderRecords } from './ui.js'
 import {
     validateDescription,
     validateAmount,
@@ -39,5 +41,19 @@ form.addEventListener('submit', function (event) {
     showResult(field, result);
     if (!result.ok && !firstBad) firstBad = field.input;
   });
-  if (firstBad) firstBad.focus();
+  if (firstBad) {
+    firstBad.focus();
+  return;
+}
+addRecord({
+    description: fields[0].input.value.replace(/\s{2,}/g, ' '),
+    amount: fields[1].input.value,
+    category: fields[2].input.value,
+    date: fields[3].input.value
 });
+renderRecords(getRecords());
+form.reset();
+fields[0].input.focus();
+});
+
+renderRecords(getRecords());

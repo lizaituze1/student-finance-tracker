@@ -1,3 +1,4 @@
+import { compileRegex, filterRecords } from './search.js';
 import { addRecord, getRecords, sortRecords} from './state.js';
 import { renderRecords } from './ui.js'
 import {
@@ -10,10 +11,20 @@ import {
 
 const sortSelect = document.getElementById('sort');
 
+const searchInput = document.getElementById('search');
+const ignoreCase = document.getElementById('ignore-case');
+const searchError = document.getElementById('search-error');
+
 function refresh() {
-    renderRecords(sortRecords(getRecords(), sortSelect.value));
+  const compiled = compileRegex(searchInput.value, ignoreCase.checked);
+  searchError.textContent = compiled.error;
+  const all = getRecords();
+  const shown = sortRecords(filterRecords(all, compiled.re), sortSelect.value);
+  renderRecords(shown, compiled.re, all.length);
 }
 
+searchInput.addEventListener('input', refresh);
+ignoreCase.addEventListener('change', refresh);
 sortSelect.addEventListener('change', refresh);
 
 const form = document.getElementById('record-form');

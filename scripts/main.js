@@ -1,4 +1,4 @@
-import { addRecord, getRecords } from './state.js';
+import { addRecord, getRecords, sortRecords} from './state.js';
 import { renderRecords } from './ui.js'
 import {
     validateDescription,
@@ -7,6 +7,14 @@ import {
     validateCategory,
     validateNoDuplicateWords
 } from './validators.js';
+
+const sortSelect = document.getElementById('sort');
+
+function refresh() {
+    renderRecords(sortRecords(getRecords(), sortSelect.value));
+}
+
+sortSelect.addEventListener('change', refresh);
 
 const form = document.getElementById('record-form');
 const fields = [
@@ -56,4 +64,4 @@ form.reset();
 fields[0].input.focus();
 });
 
-renderRecords(getRecords());
+refresh();

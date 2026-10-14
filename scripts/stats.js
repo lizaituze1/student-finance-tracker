@@ -1,7 +1,8 @@
 function toKey(d) {
     const y = d.getFullYear();
     const m = String(d.getMonth() +1).padStart(2, '0');
-    const day = String(d.getDate()).padStar(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return y + '-' + m + '-' + day;
 }
 
 export function computeStats(list) {
@@ -9,7 +10,7 @@ export function computeStats(list) {
     let sum = 0;
     const byCategory = {};
 
-    list.foreach(function (r){
+    list.forEach(function (r){
         sum += r.amount;
         byCategory[r.category] = (byCategory[r.category] || 0) +1;
     });

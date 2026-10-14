@@ -1,6 +1,7 @@
+import { computeStats, capStatus } from './stats.js';
 import { compileRegex, filterRecords } from './search.js';
-import { addRecord, getRecords, sortRecords} from './state.js';
-import { renderRecords } from './ui.js'
+import { addRecord, getRecords, sortRecords, getSettings} from './state.js';
+import { renderRecords, renderStats, renderCap } from './ui.js'
 import {
     validateDescription,
     validateAmount,
@@ -21,6 +22,9 @@ function refresh() {
   const all = getRecords();
   const shown = sortRecords(filterRecords(all, compiled.re), sortSelect.value);
   renderRecords(shown, compiled.re, all.length);
+  const stats = computeStats(all);
+  renderStats(stats);
+  renderCap(capStatus(stats.sum, getSettings().cap));
 }
 
 searchInput.addEventListener('input', refresh);
@@ -70,7 +74,8 @@ addRecord({
     category: fields[2].input.value,
     date: fields[3].input.value
 });
-renderRecords(getRecords());
+
+refresh();
 form.reset();
 fields[0].input.focus();
 });

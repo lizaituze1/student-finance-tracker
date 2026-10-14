@@ -40,3 +40,13 @@ export function sortRecords(list, mode) {
     }
     return copy;
 } 
+
+let settings = { cap: null };
+
+export function getSettings() {
+    return settings;
+}
+
+export function updateSettings(changes) {
+    settings = Object.assign({}, settings, changes);
+}

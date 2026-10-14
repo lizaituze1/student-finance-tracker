@@ -41,3 +41,36 @@ export function renderRecords(list, re, total) {
     body.appendChild(tr);
   });
 }
+
+export function renderStats(stats) {
+  document.getElementById('stat-total').textContent = stats.total;
+  document.getElementById('stat-sum').textContent = stats.sum.toFixed(2);
+  document.getElementById('stat-top').textContent = stats.top;
+
+  const trend = document.getElementById('trend');
+  trend.innerHtml = '';
+  const amounts = stats.days.map(function (d) { return d.amount; });
+  const max = Math.max.apply(null, amounts.concat([1]));
+
+  stats.days.forEach(function (d) {
+    const bar = document.createElement('div');
+    bar.className = 'bar';
+    bar.style.height = (d.amount /max * 100) + '%';
+    bar.title = d.key + ': ' + d.amount.toFixed(2);
+    trend.appendChild(bar);
+  });
+
+  const summary = stats.days.map(function (d) {
+    return d.key.slice(5) + ' ' + d.amount.toFixed(2);
+  }).join(', ');
+  trend.setAttribute('aria-label', 'Spending over the last 7 days: ' + summary);
+}
+
+export function renderCap(status) {
+  const msg = document.getElementById('cap-message');
+  const statCap = document.getElementById('stat-cap');
+  msg.setAttribute('aria-live', status.state === 'over' ? 'assertive' : 'polite');
+  msg.textContent = status.text;
+  msg.className = 'cap-' + status.state;
+  statCap.textContent = status.left === null ? 'Not set' : status.left.toFixed(2);
+}

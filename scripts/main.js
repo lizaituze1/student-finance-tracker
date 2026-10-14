@@ -1,6 +1,6 @@
 import { computeStats, capStatus } from './stats.js';
 import { compileRegex, filterRecords } from './search.js';
-import { addRecord, getRecords, sortRecords, getSettings, updateSettings, setRecords} from './state.js';
+import { addRecord, getRecords, sortRecords, getSettings, updateSettings, setRecords, deleteRecord} from './state.js';
 import { renderRecords, renderStats, renderCap } from './ui.js'
 import { loadRecords, saveRecords, loadSettings, saveSettings } from './storage.js';
 import {
@@ -87,6 +87,16 @@ fields[0].input.focus();
 const settingsForm = document.getElementById('settings-form');
 const capInput = document.getElementById('cap');
 const capError = document.getElementById('cap-error');
+
+document.getElementById('records-body').addEventListener('click', function (event) {
+  const btn = event.target.closest('.btn-delete');
+  if (!btn) return;
+  if (!confirm('Delete this record?')) return;
+  deleteRecord(btn.getAttribute('data-id'));
+  saveRecords(getRecords());
+  refresh();
+  searchInput.focus();
+});
 
 setRecords(loadRecords());
 updateSettings(loadSettings());

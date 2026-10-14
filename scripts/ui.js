@@ -37,7 +37,18 @@ export function renderRecords(list, re, total) {
     tr.appendChild(makeCell('Description', r.description, re));
     tr.appendChild(makeCell('Category', r.category, re));
     tr.appendChild(makeCell('Amount', r.amount.toFixed(2), null));
-    tr.appendChild(makeCell('Actions', '', null));
+
+    const actions = document.createElement('td');
+    actions.setAttribute('data-label', 'Actions');
+    const del = document.createElement('button');
+    del.type = 'button';
+    del.textCount = 'Delete';
+    del.className = 'btn-delete';
+    del.setAttribute('data-id', r.id);
+    del.setAttribute('aria-label', 'Delete ' + r.description);
+    actions.appendChild(del);
+    tr.appendChild(actions);
+
     body.appendChild(tr);
   });
 }

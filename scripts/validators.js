@@ -49,3 +49,32 @@ export function validateNoDuplicateWords(value) {
     return { ok: true, message: '' };
 }
 
+export function validateImport(data) {
+    if (!Array.isArray(data)) {
+        return { ok: false, message: 'The file must contain a list of records.' };
+    }
+    for (let i = 0; i < data.length; i++) {
+        const r = data[i];
+        const n = i+1;
+        if (typeof r !== 'object' || r === null) {
+            return { ok: false, message: 'Record ' + n + 'has no id.' }
+        }
+        if (typeof r.id !== 'string' || r.id === '') {
+            return { ok: false, message: 'Record ' + n + ' has no id.' };
+        }
+        if (typeof r.description !== 'string' || !validateDescription(r.description).ok) {
+            return { ok: false, message: 'Record ' + n + ' has a bad description.' };
+        }
+        if (typeof r.amount !== 'string' || !validateAmount(r.amount).ok) {
+            return { ok: false, message: 'Record ' + n + ' has a bad amount.' };
+        }
+        if (typeof r.date !== 'string' || !validateDate(r.date).ok) {
+            return { ok: false, message: 'Record ' + n + ' has a bad category.' };
+        }
+        if (typeof r.category !== 'string' || !validateCategory(r.category).ok) {
+            return { ok: false, message: 'Record ' + n + ' has a bad date.' };
+        }
+    }
+    return { ok: true, message: 'Imported ' + data.length + ' records.' };
+}
+

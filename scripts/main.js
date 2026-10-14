@@ -8,6 +8,7 @@ import {
     validateAmount,
     validateDate,
     validateCategory,
+    validateImport,
     validateNoDuplicateWords
 } from './validators.js';
 
@@ -134,6 +135,61 @@ document.getElementById('records-body').addEventListener('click', function (even
 
 cancelBtn.addEventListener('click', endEdit);
 endEdit();
+
+const exportBtn = document.getElementById('export-btn');
+const importFile = document.getElementById('import-file');
+const dataStatus = document.getElementById('data-status');
+
+exportBtn.addEventListener('click', function () {
+  const text = JSON.stringify(getRecords(), nul, 2);
+  const blob = new Blob([text], { type: 'application/json' });
+  const url = URL.createObjectiveURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'finance-records.json';
+  cocument.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+  dataStatus.textContent = 'Exported ' + getRecords().length;length + ' records. ';
+});
+
+importFile.addEventListener('change', function () {
+  const file = importFile.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function () {
+    let data;
+    try{
+      data = JSON.parse(reader.result);
+    } catch (e) {
+      dataStatus.textContent = 'That file is not valid JSON.';
+      return;
+    }
+    const check = validateImport(data);
+    if (!check.ok) {
+      dataStatus.textContent = check.message;
+      return;
+    }
+    const now = new Date().toISOString();
+    setRecords(data.map(function (r) {
+      return {
+        id: r.id,
+        description: r.description,
+        amount: Number(r.amount),
+        category: r.category,
+        date: r.date,
+        createdAt: r.createdAt || now,
+        updatedAt: r.updatedAt || now
+      };
+    }));
+    saveRecords(getRecords());
+    refresh();
+    dataStatus.textContent = check.message;
+  };
+  reader.readAsText(file);
+  importFile.value = '';
+});
 
 setRecords(loadRecords());
 updateSettings(loadSettings());

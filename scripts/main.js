@@ -1,6 +1,6 @@
 import { computeStats, capStatus } from './stats.js';
 import { compileRegex, filterRecords } from './search.js';
-import { addRecord, getRecords, sortRecords, getSettings} from './state.js';
+import { addRecord, getRecords, sortRecords, getSettings, updateSettings} from './state.js';
 import { renderRecords, renderStats, renderCap } from './ui.js'
 import {
     validateDescription,
@@ -81,3 +81,23 @@ fields[0].input.focus();
 });
 
 refresh();
+
+const settingsForm = document.getElementById('settings-form');
+const capInput = document.getElementById('cap');
+const capError = document.getElementById('cap-error');
+
+settingsForm.addEventListener('submit', function (event) {
+  event.preventDefault();
+  const raw = capInput.value.trim();
+  if (raw === '') {
+    updateSettings({ cap: null});
+    capError.textContent = '';
+    capInput.setAttribute('aria-invalid', result.ok ? 'false' : 'true');
+    if (!result.ok) {
+      capInput.focus();
+      return;
+    }
+    updateSettings({ cap: Number(raw) });
+  }
+  refresh();
+});

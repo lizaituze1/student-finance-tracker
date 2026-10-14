@@ -9,7 +9,7 @@ export function setRecords(list) {
 }
 
 export function addRecord(data) {
-    const now = new Date().toISOstring();
+    const now = new Date().toISOString();
     const record = {
         id: 'txn_' + Date.now(),
         description: data.description,

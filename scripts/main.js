@@ -98,6 +98,7 @@ form.addEventListener('submit', function (event) {
     firstBad.focus();
   return;
 }
+
 addRecord({
     description: fields[0].input.value.replace(/\s{2,}/g, ' '),
     amount: fields[1].input.value,

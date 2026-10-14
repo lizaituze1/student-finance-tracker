@@ -1,0 +1,13 @@
+[
+    
+    {"id":"txn_1","description":"Lunch at cafeteria","amount":12.5,"category":"Food","date":"2026-10-14","createdAt":"2026-10-14T08:00:00:000Z","updatedAt":"2026-10-14T08:00:00:00:000Z"},
+    {"id":"txn_2","description":"Chemistry textbook","amount":89.99,"category":"Books","date":"2026-10-13","createdAt":"2026-10-13T08:00:00:000Z","updatedAt":"2026-10-13T08:00:00:00:000Z"},
+    {"id":"txn_3","description":"Bus pass","amount":45,"category":"Transport","date":"2026-10-12","createdAt":"2026-10-12T08:00:00:000Z","updatedAt":"2026-10-12T08:00:00:00:000Z"},
+    {"id":"txn_4","description":"Coffee with friends","amount":8.75,"category":"Entertainment","date":"2026-10-11","createdAt":"2026-10-11T08:00:00:000Z","updatedAt":"2026-10-11T08:00:00:00:000Z"},
+    {"id":"txn_5","description":"Tea and coffee","amount":0.01,"category":"Food","date":"2026-10-10","createdAt":"2026-10-10T08:00:00:000Z","updatedAt":"2026-10-10T08:00:00:00:000Z"},
+    {"id":"txn_6","description":"Semester fees","amount":1250000,"category":"Fees","date":"2026-10-09","createdAt":"2026-10-09T08:00:00:000Z","updatedAt":"2026-10-09T08:00:00:00:000Z"},
+    {"id":"txn_7","description":"Lunch lunch special","amount":6.2,"category":"Food","date":"2026-10-08","createdAt":"2026-10-08T08:00:00:000Z","updatedAt":"2026-10-08T08:00:00:00:000Z"},
+    {"id":"txn_8","description":"Leap day party","amount":30,"category":"Entertainment","date":"2024-02-29","createdAt":"2026-10-14T08:00:00:000Z","updatedAt":"2026-10-14T08:00:00:00:000Z"},
+    {"id":"txn_9","description":"Notebook & pens (2 packs)","amount":15.4,"category":"Self-care","date":"2026-10-14","createdAt":"2026-10-14T08:00:00:000Z","updatedAt":"2026-10-14T08:00:00:00:000Z"},
+    {"id":"txn_10","description":"<b>Bold</b> snacks","amount":3.3,"category":"Other","date":"2026-10-13","createdAt":"2026-10-13T08:00:00:000Z","updatedAt":"2026-10-13T08:00:00:00:000Z"}
+]

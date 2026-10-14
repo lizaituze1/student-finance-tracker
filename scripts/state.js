@@ -26,13 +26,13 @@ export function addRecord(data) {
 export function sortRecords(list, mode) {
     const copy = list.slice();
     if (mode === 'date-asc') {
-        copy.sort(function (a, b) { return a.date.localCompare(b.date); });
+        copy.sort(function (a, b) { return a.date.localeCompare(b.date); });
     } else if (mode ==='date-desc') {
-        copy.sort(function (a, b) { return b.date.localCompare(a.date); });
+        copy.sort(function (a, b) { return b.date.localeCompare(a.date); });
     } else if (mode === 'desc-asc') {
-        copy.sort(function (a, b) { return a.description.localCompare(b.description); });
+        copy.sort(function (a, b) { return a.description.localeCompare(b.description); });
     } else if (mode === 'desc-asc') {
-        copy.sort(function (a, b) { return b.description.localCompare(a.description); });
+        copy.sort(function (a, b) { return b.description.localeCompare(a.description); });
     } else if (mode === 'amount-asc') {
         copy.sort(function (a, b) { return a.amount -b.amount; });
     } else if (mode === 'amount-desc') {

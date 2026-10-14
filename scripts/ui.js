@@ -42,7 +42,7 @@ export function renderRecords(list, re, total) {
     actions.setAttribute('data-label', 'Actions');
     const del = document.createElement('button');
     del.type = 'button';
-    del.textCount = 'Delete';
+    del.textContent = 'Delete';
     del.className = 'btn-delete';
     del.setAttribute('data-id', r.id);
     del.setAttribute('aria-label', 'Delete ' + r.description);

@@ -185,6 +185,10 @@ main > section {
   color: #0b6b2e;
 }
 
+.btn-delete {
+  background: var(--error)
+}
+
 .btn-edit {
   margin-right: 0.5rem;
 }

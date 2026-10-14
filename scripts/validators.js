@@ -57,7 +57,7 @@ export function validateImport(data) {
         const r = data[i];
         const n = i+1;
         if (typeof r !== 'object' || r === null) {
-            return { ok: false, message: 'Record ' + n + 'has no id.' }
+            return { ok: false, message: 'Record ' + n + ' is not a valid record.' }
         }
         if (typeof r.id !== 'string' || r.id === '') {
             return { ok: false, message: 'Record ' + n + ' has no id.' };
@@ -65,14 +65,14 @@ export function validateImport(data) {
         if (typeof r.description !== 'string' || !validateDescription(r.description).ok) {
             return { ok: false, message: 'Record ' + n + ' has a bad description.' };
         }
-        if (typeof r.amount !== 'string' || !validateAmount(r.amount).ok) {
+        if (!validateAmount(String(r.amount)).ok) {
             return { ok: false, message: 'Record ' + n + ' has a bad amount.' };
         }
         if (typeof r.date !== 'string' || !validateDate(r.date).ok) {
-            return { ok: false, message: 'Record ' + n + ' has a bad category.' };
+            return { ok: false, message: 'Record ' + n + ' has a bad date.' };
         }
         if (typeof r.category !== 'string' || !validateCategory(r.category).ok) {
-            return { ok: false, message: 'Record ' + n + ' has a bad date.' };
+            return { ok: false, message: 'Record ' + n + ' has a bad category.' };
         }
     }
     return { ok: true, message: 'Imported ' + data.length + ' records.' };

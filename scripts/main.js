@@ -141,17 +141,17 @@ const importFile = document.getElementById('import-file');
 const dataStatus = document.getElementById('data-status');
 
 exportBtn.addEventListener('click', function () {
-  const text = JSON.stringify(getRecords(), nul, 2);
+  const text = JSON.stringify(getRecords(), null, 2);
   const blob = new Blob([text], { type: 'application/json' });
-  const url = URL.createObjectiveURL(blob);
+  const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = url;
   link.download = 'finance-records.json';
-  cocument.body.appendChild(link);
+  document.body.appendChild(link);
   link.click();
   link.remove();
   URL.revokeObjectURL(url);
-  dataStatus.textContent = 'Exported ' + getRecords().length;length + ' records. ';
+  dataStatus.textContent = 'Exported ' + getRecords().length + ' records.';
 });
 
 importFile.addEventListener('change', function () {

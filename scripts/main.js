@@ -1,7 +1,8 @@
 import { computeStats, capStatus } from './stats.js';
 import { compileRegex, filterRecords } from './search.js';
-import { addRecord, getRecords, sortRecords, getSettings, updateSettings} from './state.js';
+import { addRecord, getRecords, sortRecords, getSettings, updateSettings, setRecords} from './state.js';
 import { renderRecords, renderStats, renderCap } from './ui.js'
+import { loadRecords, saveRecords, loadSettings, saveSettings } from './storage.js';
 import {
     validateDescription,
     validateAmount,
@@ -75,23 +76,34 @@ addRecord({
     date: fields[3].input.value
 });
 
+saveRecords(getRecords());
+
 refresh();
 form.reset();
 fields[0].input.focus();
 });
 
-refresh();
 
 const settingsForm = document.getElementById('settings-form');
 const capInput = document.getElementById('cap');
 const capError = document.getElementById('cap-error');
 
+setRecords(loadRecords());
+updateSettings(loadSettings());
+const savedCup = getSettings().cap;
+capInput.value = savedCup === null || savedCup === undefined ? '' : savedCup;
+refresh();
+
 settingsForm.addEventListener('submit', function (event) {
   event.preventDefault();
   const raw = capInput.value.trim();
   if (raw === '') {
-    updateSettings({ cap: null});
+    updateSettings({ cap: null });
     capError.textContent = '';
+    capInput.setAttribute('aria-invalid', 'false');
+  } else {
+    const result = validateAmount(raw);
+    capError.textContent = result.message;
     capInput.setAttribute('aria-invalid', result.ok ? 'false' : 'true');
     if (!result.ok) {
       capInput.focus();
@@ -99,5 +111,6 @@ settingsForm.addEventListener('submit', function (event) {
     }
     updateSettings({ cap: Number(raw) });
   }
+  saveSettings(getSettings());
   refresh();
 });

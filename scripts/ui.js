@@ -46,6 +46,15 @@ export function renderRecords(list, re, total) {
     del.className = 'btn-delete';
     del.setAttribute('data-id', r.id);
     del.setAttribute('aria-label', 'Delete ' + r.description);
+
+    const edit = document.createElement('button');
+    edit.type = 'button';
+    edit.textContent = 'Edit';
+    edit.className = 'btn-edit';
+    edit.setAttribute('data-id', r.id);
+    edit.setAttribute('aria-label', 'Edit' + r.description);
+    actions.appendChild(edit);
+    
     actions.appendChild(del);
     tr.appendChild(actions);
 

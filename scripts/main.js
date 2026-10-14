@@ -1,6 +1,6 @@
 import { computeStats, capStatus } from './stats.js';
 import { compileRegex, filterRecords } from './search.js';
-import { addRecord, getRecords, sortRecords, getSettings, updateSettings, setRecords, deleteRecord} from './state.js';
+import { addRecord, getRecords, sortRecords, getSettings, updateSettings, setRecords, deleteRecord, updateRecord} from './state.js';
 import { renderRecords, renderStats, renderCap } from './ui.js'
 import { loadRecords, saveRecords, loadSettings, saveSettings } from './storage.js';
 import {
@@ -57,6 +57,34 @@ fields.forEach(function (field) {
   });
 });
 
+const recordIdInput = document.getElementById('record-id');
+const saveBtn = document.getElementById('save-btn');
+const cancelBtn = document.getElementById('cancel-btn');
+const formTitle = document.getElementById('form-title');
+
+function startEdit(id) {
+  const rec = getRecords().find(function (r) { return r.id === id; });
+  if (!rec) return;
+  recordIdInput.value = rec.id;
+  fields[0].input.value = rec.description;
+    fields[1].input.value = rec.amount;
+    fields[2].input.value = rec.category;
+    fields[3].input.value = rec.date;
+    saveBtn.textContent = 'Update record';
+    formTitle.textContent = 'edit record';
+    cancelBtn.hidden = false;
+    fields[0].input.focus();
+}
+
+function endEdit() {
+  recordIdInput.value = '';
+  saveBtn.textContent = 'Save record';
+  formTitle.textContent = 'Add a record';
+  cancelBtn.hidden = true;
+  form.reset();
+}
+
+
 form.addEventListener('submit', function (event) {
   event.preventDefault();
   let firstBad = null;
@@ -97,6 +125,15 @@ document.getElementById('records-body').addEventListener('click', function (even
   refresh();
   searchInput.focus();
 });
+
+document.getElementById('records-body').addEventListener('click', function (event) {
+  const btn = event.target.closest('.btn-edit');
+  if (!btn) return;
+  startEdit(btn.getAttribute('data-id'));
+});
+
+cancelBtn.addEventListener('click', endEdit);
+endEdit();
 
 setRecords(loadRecords());
 updateSettings(loadSettings());

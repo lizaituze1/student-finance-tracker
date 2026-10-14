@@ -57,3 +57,14 @@ export function deleteRecord(id) {
             return r.id !== id;})
     });
 }
+
+export function updateRecord(id, data) {
+    const r = records.find(function (x) { return x.id === id; });
+    if (!r) return;
+    r.description = data.description;
+    r.amount = Number(data.amount);
+    r.category = data.category;
+    r.date = data.date;
+    r.updatedAt = new Date().toISOString();
+    }
+

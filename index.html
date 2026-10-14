@@ -67,8 +67,8 @@
                 <select id="sort">
                     <option value="date-desc">Date, newest first</option>
                     <option value="date-asc">Date, oldest first</option>
-                    <option value="date-asc">Description A to Z</option>
-                    <option value="date-desc">description Z to A</option>
+                    <option value="desc-asc">Description A to Z</option>
+                    <option value="desc-desc">Description Z to A</option>
                     <option value="amount-asc">Amount, low to high</option>
                     <option value="amount-desc">Amount, high to low</option>
                 </select>
@@ -82,7 +82,7 @@
 
             <p id="empty-message">No records yet. Add your first one below</p>
 
-            <table id="records">
+            <table id="records-table">
                 <caption>Your expenses</caption>
                 <thead>
                     <tr>
@@ -133,7 +133,7 @@
                     <p id="date-error" class="error" role="status"></p>
                 </div>
 
-                <button type="submit" id-="save-btn">Save record</button>
+                <button type="submit" id="save-btn">Save record</button>
                 <button type="button" id="cancel-btn">Cancel edit</button>
             </form>
         </section>

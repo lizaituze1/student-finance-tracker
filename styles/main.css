@@ -170,6 +170,22 @@ main > section {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
+.bar {
+  flex: 1;
+  min-height: 2px;
+  background: var(--acent);
+  border-radius: 3px 3px 0 0;
+}
+
+.cap-under {
+  color: #0b6b2e;
+}
+
+.cap-over {
+  color: var(--error);
+  font-weight: 700;
+}
+
 h2 {
   margin-top: 0;
   padding-left: 0.75rem;

@@ -3,7 +3,7 @@
 A small web app for tracking student spending, built with plain HTML, CSS and Javascript (no framework) for my responsive UI assignment
 
 **Live site:** https://lizaituze1.github.io/student-finance-tracker/
-**Demo video:** 
+**Demo video:** https://youtu.be/A3txj-6N3uA
 **CodePause workspace export:** [Open the JSON export](codepause-export-1792328793282.json)
 **Contact:** [GitHub](https://github.com/lizaituze1) | l.ituze@alustudent.com
 

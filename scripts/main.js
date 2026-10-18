@@ -112,6 +112,7 @@ document.getElementById('records-body').addEventListener('click', function(event
     if (!confirm('Delete this record?')) return;
     deleteRecord(btn.getAttribute('data-id'));
     saveRecords(getRecords());
+    refresh();
 });
 
 document.getElementById('records-body').addEventListener('click', function (event) {

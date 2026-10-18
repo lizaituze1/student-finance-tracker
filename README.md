@@ -1,21 +1,21 @@
 # Student Finance Tracker
 
-A small web app for tracking student spending, built with plain HTML, CSS and Javascript (no frameworks) for my responsive UI assignment
+A small web app for tracking student spending, built with plain HTML, CSS and Javascript (no framework) for my responsive UI assignment
 
-**Live site:** https://lizaituze1.github.io/student-finance-tracker/
-**Demo video:** 
-**Contact:** https://github.com/lizaituze1 | l.ituze@alustudent.com
+**Live site:** 
+**Demo video:**
+**Contact:** [GitHub](https://github.com/lizaituze1) | l.ituze@alustudent.com
 
 ## Theme
 
-Student Finance Tracker. It lets a student record expenses, search and sort them, and see how much they have spent compared with a spending cap
+Student Finance Tracker . It lets a student record expenses, search and sort them, and see how much they have spent compared with a spending cap.
 
 ## Features
 
 - Add records with a description, amount, category and date
 - Delete records with a confirmation, and edit them through the form
 - Sort by date, description or amount
-- Live regex search with highlighted matches ('<mark>') and a case-sensitive toggle
+- Live regex search with highlighted matches (`<mark>`) and a case-sensitive toggle
 - Dashboard: total records, total spent, top category, cap left and a 7-day trend chart
 - Spending cap with a polite or assertive ARIA live message
 - Data saved in localStorage, plus JSON export and validated JSON import
@@ -32,9 +32,9 @@ Student Finance Tracker. It lets a student record expenses, search and sort them
 | Category | `/^[A-Za-z]+(?:[ -][A-Za-z]+)*$/` | "Self-care" passes, "Food2" fails |
 | Duplicate words (advanced, back-reference) | `/\b(\w+)\s+\1\b/i` | "Lunch lunch" is caught |
 
-The date rule also checks that the day really exists, so "2025-02-31" fails.
+The date rule also checks that the day really exists, so "2025-02-31" fails
 
-Search examples to try in the app: `coffee|tea` and `\b(\w+)\s+\1\b`. Invalid patterns sjow a message instead of crashing.
+Search examples to try in the app: `coffee|tea` and `\b(\w+)\s+\1\b`. Invalid patterns show a message instead of crashing.
 
 ## Keyboard map
 
@@ -48,27 +48,26 @@ Search examples to try in the app: `coffee|tea` and `\b(\w+)\s+\1\b`. Invalid pa
 
 ## Accessibility notes
 
-- Semantic landmard: header, nav, main, section, footer, and one h1
+- Semantic landmarks: header, nav, main, section, footer, and one h1
 - Every input has a bound label, and errors appear under the field with `role="status"
-- Inputs get `aria-invalid` when they fail validation
-- The cap message uses `aria-live` (polite under the cap, assertive over it)
-- Visible focus outlines and a skip-to-content link
+- Inputs get `aria-live` (polite under te cap, assertive over it)
+- Visible focus outlines ans a skip-to-content link
 - The 7-day chart has an `aria-label` that lists its values
-- Colours were chosen for good contrast
+- Colours were chose for good contrast
 
 ## How to run the app and tests
 
 1. Open the project folder in VS Code and install the Live Server extension.
-2. Right-click `index.html` and choose **Open with Live Server** (modules do not work from `file://`)
+2. Right-click `index.html` and choose **Open with LiveServer** (modules do not work from `file://`).
 3. For tests, open `tests.html` the same way. Every line should say PASS.
-4. To try te sample data, use **Import JSON** in Settings and choose `seed.json`.
+4. To try the sample data, use **Import JSON** in Settings and choose `seed.json`
 
 ## Project structure
 
 ```
 index.html tests.html seed.json
 styles/main.css
-scripts/ main.js, state.js, ui.js, validators.js, search.ja, stats.js, storage.js
+scripts/ main.js, state.js, ui.js, validators.js, search.js, stats.js, storage.js
 docs/ spec and wireframes
 ```
 
@@ -80,5 +79,4 @@ docs/ spec and wireframes
 
 ## AI assistance
 
-I used Claude (an AI assistant) throughout this project, including for planning, debugging, and writing this README.
-
+I used Claude AI for planning, explanations, debugging and i used Codex to fix an error of deleting button which brought many errors and it led to have many AI lines on the date of 16 October because it added many lines i didn't ask for.

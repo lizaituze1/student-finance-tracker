@@ -42,7 +42,7 @@ export function capStatus(sum, cap) {
     }
     const diff = cap - sum;
     if (diff >=0) {
-    return { state: 'under', text: 'You have ' + diff.toFixed(2) + 'left under your cap.', left: diff};
+    return { state: 'under', text: 'You have ' + diff.toFixed(2) + ' left under your cap.', left: diff};
     }
     return { state: 'over', text: 'You are over your cap by ' +Math.abs(diff).toFixed(2) + '!', left: diff };
 }

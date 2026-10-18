@@ -4,7 +4,7 @@ export function validateDescription(value) {
     if (!pattern.test(cleaned)) {
         return { ok: false, message: 'Remove spaces at the start or end.' };
     }
-    return { ok: true, messages: '' };
+    return { ok: true, message: '' };
 }
 
 export function validateAmount(value) {

@@ -39,7 +39,7 @@ function checkDescription(value) {
 
 function showResult(field, result) {
     field.error.textContent = result.message;
-    field.input.setAttribute('aria-invalid', !result.ok ? 'false' : 'true');
+    field.input.setAttribute('aria-invalid', result.ok ? 'false' : 'true');
 }
 
 fields.forEach(function (field) {
@@ -88,17 +88,22 @@ form.addEventListener('submit', function (event) {
         return;
     }
 
-addRecord({
+const recordData = {
     description: fields[0].input.value.replace(/\s{2,}/g, ' '),
     amount: fields[1].input.value,
-    category: fields[2].input.value,
-    date: fields[3].input.value
-});
+    category: fields[3].input.value,
+    date: fields[2].input.value
+};
+
+if (recordIdInput.value) {
+    updateRecord(recordIdInput.value, recordData);
+} else {
+    addRecord(recordData);
+}
 
 saveRecords(getRecords());
-
 refresh();
-form.reset();
+endEdit();
 fields[0].input.focus();
 });
 
@@ -138,7 +143,7 @@ exportBtn.addEventListener('click', function() {
     link.click();
     link.remove();
     URL.revokeObjectURL(url);
-    dataStatus.textContent = 'Exported' + getRecords().length + 'records';
+    dataStatus.textContent = 'Exported ' + getRecords().length + ' records';
 });
 
 importFile.addEventListener('change', function () {
@@ -194,7 +199,7 @@ settingsForm.addEventListener('submit', function (event) {
 } else{
     const result = validateAmount(raw);
     capError.textContent = result.message;
-    capInput.setAttribute('aria-invalid', !result.ok ? 'false' : 'true');
+    capInput.setAttribute('aria-invalid', result.ok ? 'false' : 'true');
     if(!result.ok) {
         capInput.focus();
         return;

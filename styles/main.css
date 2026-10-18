@@ -74,7 +74,7 @@ footer { padding: var(--space); background: var(--surface); text-align: center; 
 .stat h3 { margin: 0; font-size: 0.9rem; color: var(--muted); }
 .stat p { margin: 0.25rem 0 0; font-size: 1.4rem; font-weight: 600; }
 
-.trend { display: flex; align-items: flrx-end; gap: 4px; height: 80px; }
+.trend { display: flex; align-items: flex-end; gap: 4px; height: 80px; }
 
 .field { margin-bottom: var(--space); }
 label { display: block; margin-bottom: 0.25rem; font-weight: 600; }
@@ -173,7 +173,7 @@ main > section {
 .bar {
   flex: 1;
   min-height: 2px;
-  background: var(--acent);
+  background: var(--accent);
   border-radius: 3px 3px 0 0;
 }
 

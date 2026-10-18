@@ -52,7 +52,7 @@ export function renderRecords(list, re, total) {
     edit.textContent = 'Edit';
     edit.className = 'btn-edit';
     edit.setAttribute('data-id', r.id);
-    edit.setAttribute('aria-label', 'Edit' + r.description);
+    edit.setAttribute('aria-label', 'Edit ' + r.description);
     actions.appendChild(edit);
     
     actions.appendChild(del);
@@ -68,7 +68,7 @@ export function renderStats(stats) {
   document.getElementById('stat-top').textContent = stats.top;
 
   const trend = document.getElementById('trend');
-  trend.innerHtml = '';
+  trend.innerHTML = '';
   const amounts = stats.days.map(function (d) { return d.amount; });
   const max = Math.max.apply(null, amounts.concat([1]));
 

@@ -31,7 +31,7 @@ export function sortRecords(list, mode) {
         copy.sort(function (a, b) { return b.date.localeCompare(a.date); });
     } else if (mode === 'desc-asc') {
         copy.sort(function (a, b) { return a.description.localeCompare(b.description); });
-    } else if (mode === 'desc-asc') {
+    } else if (mode === 'desc-desc') {
         copy.sort(function (a, b) { return b.description.localeCompare(a.description); });
     } else if (mode === 'amount-asc') {
         copy.sort(function (a, b) { return a.amount -b.amount; });

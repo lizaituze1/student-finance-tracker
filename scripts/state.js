@@ -53,8 +53,7 @@ export function updateSettings(changes) {
 
 export function deleteRecord(id) {
     records = records.filter(function (r) {
-        records = records.filter(function (r) {
-            return r.id !== id;})
+        return r.id !== id;
     });
 }
 

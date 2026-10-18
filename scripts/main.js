@@ -1,32 +1,24 @@
 import { computeStats, capStatus } from './stats.js';
-import { compileRegex, filterRecords } from './search.js';
-import { addRecord, getRecords, sortRecords, getSettings, updateSettings, setRecords, deleteRecord, updateRecord} from './state.js';
-import { renderRecords, renderStats, renderCap } from './ui.js'
+import { compileRegex, filterRecords } from'./search.js';
+import { addRecord, deleteRecord, getRecords, sortRecords, getSettings, updateSettings, setRecords, updateRecord } from './state.js';
+import { renderRecords, renderStats, renderCap } from './ui.js';
 import { loadRecords, saveRecords, loadSettings, saveSettings } from './storage.js';
-import {
-    validateDescription,
-    validateAmount,
-    validateDate,
-    validateCategory,
-    validateImport,
-    validateNoDuplicateWords
-} from './validators.js';
+import { validateDescription, validateAmount, validateDate, validateCategory, validateImport, validateNoDuplicateWords } from './validators.js';
 
 const sortSelect = document.getElementById('sort');
-
 const searchInput = document.getElementById('search');
 const ignoreCase = document.getElementById('ignore-case');
 const searchError = document.getElementById('search-error');
 
 function refresh() {
-  const compiled = compileRegex(searchInput.value, ignoreCase.checked);
-  searchError.textContent = compiled.error;
-  const all = getRecords();
-  const shown = sortRecords(filterRecords(all, compiled.re), sortSelect.value);
-  renderRecords(shown, compiled.re, all.length);
-  const stats = computeStats(all);
-  renderStats(stats);
-  renderCap(capStatus(stats.sum, getSettings().cap));
+    const compiled = compileRegex(searchInput.value, ignoreCase.checked);
+    searchError.textContent = compiled.error;
+    const all = getRecords();
+    const shown = sortRecords(filterRecords(all, compiled.re), sortSelect.value);
+    renderRecords(shown, compiled.re, all.length);
+    const stats = computeStats(all);
+    renderStats(stats);
+    renderCap(capStatus(stats.sum, getSettings().cap));
 }
 
 searchInput.addEventListener('input', refresh);
@@ -36,26 +28,25 @@ sortSelect.addEventListener('change', refresh);
 const form = document.getElementById('record-form');
 const fields = [
     { input: document.getElementById('description'), error: document.getElementById('description-error'), check:checkDescription},
-    { input: document.getElementById('amount'), error: document.getElementById('amount-error'), check: validateAmount },
-  { input: document.getElementById('category'), error: document.getElementById('category-error'), check: validateCategory },
-  { input: document.getElementById('date'), error: document.getElementById('date-error'), check: validateDate }
+    { input: document.getElementById('amount'), error: document.getElementById('amount-error'), check:validateAmount },
+    { input: document.getElementById('date'), error: document.getElementById('date-error'), check:validateDate },
+    { input: document.getElementById('category'), error: document.getElementById('category-error'), check:validateCategory }
 ];
 
 function checkDescription(value) {
-  const basic = validateDescription(value);
-  if (!basic.ok) return basic;
-  return validateNoDuplicateWords(value);
+    const basic = validateDescription(value);
+    if(!basic.ok) return basic;
 }
 
 function showResult(field, result) {
-  field.error.textContent = result.message;
-  field.input.setAttribute('aria-invalid', result.ok ? 'false' : 'true');
+    field.error.textContent = result.message;
+    field.input.setAttribute('aria-invalid', !result.ok ? 'false' : 'true');
 }
 
 fields.forEach(function (field) {
-  field.input.addEventListener('blur', function () {
-    showResult(field, field.check(field.input.value));
-  });
+    field.input.addEventListener('blur', function () {
+        showResult(field, field.check(field.input.value));
+});
 });
 
 const recordIdInput = document.getElementById('record-id');
@@ -64,40 +55,39 @@ const cancelBtn = document.getElementById('cancel-btn');
 const formTitle = document.getElementById('form-title');
 
 function startEdit(id) {
-  const rec = getRecords().find(function (r) { return r.id === id; });
-  if (!rec) return;
-  recordIdInput.value = rec.id;
-  fields[0].input.value = rec.description;
+    const rec = getRecords().find(function (r) { return r.id === id;});
+    if (!rec) return;
+    recordIdInput.value = rec.id;
+    fields[0].input.value = rec.description;
     fields[1].input.value = rec.amount;
-    fields[2].input.value = rec.category;
-    fields[3].input.value = rec.date;
-    saveBtn.textContent = 'Update record';
+    fields[2].input.value = rec.date;
+    fields[3].input.value = rec.category;
     formTitle.textContent = 'edit record';
+    saveBtn.textContent = 'Update record';
     cancelBtn.hidden = false;
     fields[0].input.focus();
 }
 
 function endEdit() {
-  recordIdInput.value = '';
-  saveBtn.textContent = 'Save record';
-  formTitle.textContent = 'Add a record';
-  cancelBtn.hidden = true;
-  form.reset();
+    recordIdInput.value ='';
+    saveBtn.textContent = 'Save record';
+    formTitle.textContent ='Add a record';
+    cancelBtn.hidden = true;
+    form.reset();
 }
-
 
 form.addEventListener('submit', function (event) {
-  event.preventDefault();
-  let firstBad = null;
-  fields.forEach(function (field) {
-    const result = field.check(field.input.value);
-    showResult(field, result);
-    if (!result.ok && !firstBad) firstBad = field.input;
-  });
-  if (firstBad) {
-    firstBad.focus();
-  return;
-}
+    event.preventDefault();
+    let firstBad = null;
+    fields.forEach(function (field) {
+        const result = field.check(field.input.value);
+        showResult(field, result);
+        if (!result.ok && !firstBad) firstBad = field.input;
+    });
+    if (firstBad) {
+        firstBad.focus();
+        return;
+    }
 
 addRecord({
     description: fields[0].input.value.replace(/\s{2,}/g, ' '),
@@ -113,25 +103,22 @@ form.reset();
 fields[0].input.focus();
 });
 
-
 const settingsForm = document.getElementById('settings-form');
 const capInput = document.getElementById('cap');
 const capError = document.getElementById('cap-error');
 
-document.getElementById('records-body').addEventListener('click', function (event) {
-  const btn = event.target.closest('.btn-delete');
-  if (!btn) return;
-  if (!confirm('Delete this record?')) return;
-  deleteRecord(btn.getAttribute('data-id'));
-  saveRecords(getRecords());
-  refresh();
-  searchInput.focus();
+document.getElementById('records-body').addEventListener('click', function(event) {
+    const btn = event.target.closest('btn-delete');
+    if (!btn) return;
+    if (!confirm('Delete this record?')) return;
+    deleteRecord(btn.getAttribute('data-id'));
+    saveRecords(getRecords());
 });
 
 document.getElementById('records-body').addEventListener('click', function (event) {
-  const btn = event.target.closest('.btn-edit');
-  if (!btn) return;
-  startEdit(btn.getAttribute('data-id'));
+    const btn = event.target.closest('.btn-edit');
+    if (!btn) return;
+    startEdit(btn.getAttribute('data-id'));
 });
 
 cancelBtn.addEventListener('click', endEdit);
@@ -140,56 +127,55 @@ endEdit();
 const exportBtn = document.getElementById('export-btn');
 const importFile = document.getElementById('import-file');
 const dataStatus = document.getElementById('data-status');
-
-exportBtn.addEventListener('click', function () {
-  const text = JSON.stringify(getRecords(), null, 2);
-  const blob = new Blob([text], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.href = url;
-  link.download = 'finance-records.json';
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-  URL.revokeObjectURL(url);
-  dataStatus.textContent = 'Exported ' + getRecords().length + ' records.';
+exportBtn.addEventListener('click', function() {
+    const text = JSON.stringify(getRecords(), null, 2);
+    const blob = new Blob([text], { type:'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElemebt('a');
+    link.href = url;
+    link.download = 'finance-records.json';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+    dataStatus.textContent = 'Exported' + getRecords().length + 'records';
 });
 
 importFile.addEventListener('change', function () {
-  const file = importFile.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = function () {
-    let data;
-    try{
-      data = JSON.parse(reader.result);
-    } catch (e) {
-      dataStatus.textContent = 'That file is not valid JSON.';
-      return;
-    }
-    const check = validateImport(data);
-    if (!check.ok) {
-      dataStatus.textContent = check.message;
-      return;
-    }
-    const now = new Date().toISOString();
-    setRecords(data.map(function (r) {
-      return {
-        id: r.id,
-        description: r.description,
-        amount: Number(r.amount),
-        category: r.category,
-        date: r.date,
-        createdAt: r.createdAt || now,
-        updatedAt: r.updatedAt || now
-      };
-    }));
-    saveRecords(getRecords());
-    refresh();
-    dataStatus.textContent = check.message;
-  };
-  reader.readAsText(file);
-  importFile.value = '';
+    const file = importFile.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function () {
+        let data;
+        try {
+            data = JSON.parse(reader.result);
+        } catch (e) {
+            dataStatus.textContent = 'That file is not valid JSON';
+            return;
+        }
+        const check = validateImport(data);
+        if (!check.ok) {
+            dataStatus.textContent = check.message;
+            return;
+        }
+        const now = new Date().toISOString();
+        setRecords(data.map(function (r) {
+            return {
+                id: r.id,
+                description: r.description,
+                amount: Number(r.amount),
+                category: r.category,
+                date: r.date,
+                createdAt: r.createdAt || now,
+                updatedAt: r.updatedAt || now
+            };
+        }));
+        saveRecords(getRecords());
+        refresh();
+        dataStatus.textContent = check.message;
+    };
+    reader.readAsText(file);
+    importFile.value = '';
 });
 
 setRecords(loadRecords());
@@ -199,22 +185,22 @@ capInput.value = savedCup === null || savedCup === undefined ? '' : savedCup;
 refresh();
 
 settingsForm.addEventListener('submit', function (event) {
-  event.preventDefault();
-  const raw = capInput.value.trim();
-  if (raw === '') {
-    updateSettings({ cap: null });
-    capError.textContent = '';
-    capInput.setAttribute('aria-invalid', 'false');
-  } else {
+    event.preventDefault();
+    const raw = capInput.value.trim();
+    if (raw === '') {
+        updateSettings({ cap: null });
+        capError.textContent = '';
+        capInput.setAttribute('aria-invalid', 'false');    
+} else{
     const result = validateAmount(raw);
     capError.textContent = result.message;
-    capInput.setAttribute('aria-invalid', result.ok ? 'false' : 'true');
-    if (!result.ok) {
-      capInput.focus();
-      return;
+    capInput.setAttribute('aria-invalid', !result.ok ? 'false' : 'true');
+    if(!result.ok) {
+        capInput.focus();
+        return;
     }
     updateSettings({ cap: Number(raw) });
-  }
-  saveSettings(getSettings());
-  refresh();
+}
+saveSettings(getSettings());
+refresh();
 });

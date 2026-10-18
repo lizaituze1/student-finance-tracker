@@ -34,8 +34,7 @@ const fields = [
 ];
 
 function checkDescription(value) {
-    const basic = validateDescription(value);
-    if(!basic.ok) return basic;
+    return validateDescription(value);
 }
 
 function showResult(field, result) {

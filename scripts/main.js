@@ -107,7 +107,7 @@ const capInput = document.getElementById('cap');
 const capError = document.getElementById('cap-error');
 
 document.getElementById('records-body').addEventListener('click', function(event) {
-    const btn = event.target.closest('btn-delete');
+    const btn = event.target.closest('.btn-delete');
     if (!btn) return;
     if (!confirm('Delete this record?')) return;
     deleteRecord(btn.getAttribute('data-id'));
@@ -130,7 +130,7 @@ exportBtn.addEventListener('click', function() {
     const text = JSON.stringify(getRecords(), null, 2);
     const blob = new Blob([text], { type:'application/json' });
     const url = URL.createObjectURL(blob);
-    const link = document.createElemebt('a');
+    const link = document.createElement('a');
     link.href = url;
     link.download = 'finance-records.json';
     document.body.appendChild(link);
